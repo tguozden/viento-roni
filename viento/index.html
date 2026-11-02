@@ -14,11 +14,13 @@
   select { font-size: .95rem; padding: .25rem .4rem; margin-left: .3rem; }
   #stats { font-size: .9rem; color: #444; margin: .3rem 0; }
   #grafico { width: 100%; height: 360px; }
-  #serie, #viento { width: 100%; height: 220px; }
+  #series { width: 100%; height: 440px; }
+  .volver { font-size: .85rem; margin: 0 0 .3rem; }
   .ayuda { font-size: .8rem; color: #777; margin: .2rem 0 0; }
 </style>
 </head>
 <body>
+<p class="volver"><a href="../index.html">← Inicio</a></p>
 <h1>Viento (MERRA) vs RONI</h1>
 <div class="controles">
   <label>Sitio <select id="sitio"></select></label>
@@ -26,9 +28,8 @@
 </div>
 <div id="stats"></div>
 <div id="grafico"></div>
-<p class="ayuda">Clic en un punto para señalarlo en la serie del RONI; clic en las series de abajo para ver ese trimestre y año arriba. El zoom en una serie se aplica a la otra.</p>
-<div id="serie"></div>
-<div id="viento"></div>
+<p class="ayuda">Clic en un punto para señalarlo en la serie del RONI; clic en las series de abajo para ver ese trimestre y año arriba.</p>
+<div id="series"></div>
 
 <script>
 const TRIM = ["DJF", "JFM", "FMA", "MAM", "AMJ", "MJJ", "JJA", "JAS", "ASO", "SON", "OND", "NDJ"];
@@ -100,69 +101,66 @@ const colorRoni = v => v <= -0.5 ? AZUL : v >= 0.5 ? ROJO : GRIS;
       ],
     }, { responsive: true, displaylogo: false });
 
-    // Series completas (RONI y viento del sitio): cada valor es un trimestre móvil, en su mes central
+    // Series completas (RONI arriba, viento del sitio abajo) en una figura con eje x compartido.
+    // Cada valor es un trimestre móvil ubicado en su mes central.
     const fecha = (a, m) => `${a}-${String(m + 1).padStart(2, "0")}-15`;
+    const iso = d => d.toISOString().slice(0, 10);
     const completa = arr => {
       const fx = [], fy = [], fd = [];
       D.anios.forEach((a, i) => TRIM.forEach((t, m) => {
         const v = arr[t][i];
         if (v !== null) { fx.push(fecha(a, m)); fy.push(v); fd.push([a, t]); }
       }));
-      return { fx, fy, fd, j: fd.findIndex(([a, t]) => a === marcado && t === est) };
+      return { fx, fy, fd };
     };
-    const flecha = (c, fmt, ay = -35) => c.j < 0 ? [] : [{ x: c.fx[c.j], y: c.fy[c.j], ax: 0, ay,
-      text: `<b>${est} ${marcado}</b> (${fmt(c.fy[c.j])})`, showarrow: true, arrowhead: 2, arrowsize: 1.2,
-      arrowwidth: 2, arrowcolor: "#000", font: { size: 12 } }];
-    const base = { margin: { t: 30, r: 20, b: 30, l: 65 }, showlegend: false, uirevision: "zoom",
-                   xaxis: { type: "date", range: [`${D.anios[0] - 1}-12-01`, `${D.anios.at(-1)}-12-31`] } };
+    const cr = completa(D.roni), cv = completa(S);
 
-    const cr = completa(D.roni);
-    Plotly.react("serie", [
+    // Franja verde de 3 meses sobre el trimestre marcado, cruzando ambos paneles
+    const marca = [], textos = [];
+    if (marcado !== null) {
+      const m = TRIM.indexOf(est);  // 0 = DJF (centrado en enero)
+      const x0 = iso(new Date(Date.UTC(marcado, m - 1, 1))), x1 = iso(new Date(Date.UTC(marcado, m + 2, 1)));
+      marca.push({ type: "rect", xref: "x", yref: "paper", x0, x1, y0: 0, y1: 1,
+                   fillcolor: "rgba(80,200,80,0.25)", line: { width: 0 }, layer: "below" });
+      const k = D.anios.indexOf(marcado), v = k < 0 ? null : D.roni[est][k];
+      textos.push({ x: fecha(marcado, m), xref: "x", y: 0.5, yref: "paper", showarrow: false,
+                    text: `<b>${est} ${marcado}</b>` + (v === null ? "" : ` (${v.toFixed(2)} °C)`),
+                    font: { size: 12 }, bgcolor: "rgba(255,255,255,0.85)" });
+    }
+
+    Plotly.react("series", [
       { x: cr.fx, y: cr.fy, customdata: cr.fd, type: "bar", marker: { color: cr.fy.map(colorRoni) },
         hovertemplate: `<b>%{customdata[1]} %{customdata[0]}</b><br>RONI: %{y:.2f} °C<extra></extra>` },
-    ], { ...base, bargap: 0,
-      yaxis: { title: "RONI [°C]", zeroline: true },
-      shapes: [-0.5, 0.5].map(u => ({ type: "line", xref: "paper", x0: 0, x1: 1, y0: u, y1: u,
-        line: { color: u < 0 ? AZUL : ROJO, width: 1, dash: "dot" } })),
-      annotations: flecha(cr, v => `${v.toFixed(2)} °C`, cr.j >= 0 && cr.fy[cr.j] < 0 ? 35 : -35),
-    }, { responsive: true, displaylogo: false });
-
-    const cv = completa(S);
-    Plotly.react("viento", [
-      { x: cv.fx, y: cv.fy, customdata: cv.fd, type: "scatter", mode: "lines", line: { color: "#333", width: 1.2 },
+      { x: cv.fx, y: cv.fy, customdata: cv.fd, type: "scatter", mode: "lines", yaxis: "y2",
+        line: { color: "#333", width: 1.2 },
         hovertemplate: `<b>%{customdata[1]} %{customdata[0]}</b><br>Viento: %{y:.2f} ${S.unidad}<extra></extra>` },
-    ], { ...base,
-      yaxis: { title: `${sitio} [${S.unidad}]`, zeroline: false },
-      annotations: flecha(cv, () => "").map(f => ({ ...f, text: "" })),
+    ], {
+      margin: { t: 10, r: 20, b: 30, l: 65 }, showlegend: false, uirevision: "zoom", bargap: 0,
+      xaxis: { type: "date", anchor: "y2",
+               range: [`${D.anios[0] - 1}-12-01`, `${D.anios.at(-1)}-12-31`] },
+      yaxis: { domain: [0.56, 1], title: "RONI [°C]", zeroline: true },
+      yaxis2: { domain: [0, 0.44], title: `${sitio} [${S.unidad}]`, zeroline: false },
+      shapes: [...marca, ...[-0.5, 0.5].map(u => ({ type: "line", xref: "paper", x0: 0, x1: 1, yref: "y",
+        y0: u, y1: u, line: { color: u < 0 ? AZUL : ROJO, width: 1, dash: "dot" } }))],
+      annotations: textos,
     }, { responsive: true, displaylogo: false });
   }
 
   selSitio.onchange = selEst.onchange = dibujar;
   dibujar();
   const g = document.getElementById("grafico");
-  const abajo = ["serie", "viento"].map(id => document.getElementById(id));
   g.on("plotly_click", ev => {
     const p = ev.points.find(p => p.curveNumber === 0);
     if (!p) return;
     marcado = marcado === p.customdata ? null : p.customdata;  // segundo clic desmarca
     dibujar();
   });
-  abajo.forEach((el, n) => {
-    // Clic: pasa arriba al trimestre de ese valor y marca el año
-    el.on("plotly_click", ev => {
-      const [a, t] = ev.points[0].customdata;
-      if (a === marcado && t === selEst.value) marcado = null;
-      else { marcado = a; selEst.value = t; }
-      dibujar();
-    });
-    // Zoom sincronizado en el eje temporal
-    el.on("plotly_relayout", ev => {
-      const otro = abajo[1 - n], r = ev["xaxis.range"] ??
-        (ev["xaxis.range[0]"] !== undefined ? [ev["xaxis.range[0]"], ev["xaxis.range[1]"]] : null);
-      const cur = otro.layout.xaxis;
-      if (r && !(cur.range[0] === r[0] && cur.range[1] === r[1])) Plotly.relayout(otro, { "xaxis.range": r });
-      else if (ev["xaxis.autorange"] && !cur.autorange) Plotly.relayout(otro, { "xaxis.autorange": true });
-    });
+  // Clic en las series: pasa arriba al trimestre de ese valor y marca el año
+  document.getElementById("series").on("plotly_click", ev => {
+    const [a, t] = ev.points[0].customdata;
+    if (a === marcado && t === selEst.value) marcado = null;
+    else { marcado = a; selEst.value = t; }
+    dibujar();
   });
 }
 </script>

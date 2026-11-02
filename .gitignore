@@ -1,4 +1,2 @@
-*
-!index.html
-!datos.js
-!.gitignore
+*.py
+__pycache__/
