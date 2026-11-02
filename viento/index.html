@@ -50,6 +50,7 @@ function regresion(x, y) {
   return { m, b: my - m * mx, r: sxy / Math.sqrt(sxx * syy), n };
 }
 
+const MESES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 const AZUL = "#2c5fbf", ROJO = "#c0392b", GRIS = "#888";
 const colorRoni = v => v <= -0.5 ? AZUL : v >= 0.5 ? ROJO : GRIS;
 
@@ -101,19 +102,20 @@ const colorRoni = v => v <= -0.5 ? AZUL : v >= 0.5 ? ROJO : GRIS;
       ],
     }, { responsive: true, displaylogo: false });
 
-    // Series completas (RONI arriba, viento del sitio abajo) en una figura con eje x compartido.
-    // Cada valor es un trimestre móvil ubicado en su mes central.
+    // Series completas (RONI arriba, viento mensual del sitio abajo) en una figura con eje x compartido.
+    // RONI: cada valor es un trimestre móvil ubicado en su mes central. Abajo: valores mensuales.
     const fecha = (a, m) => `${a}-${String(m + 1).padStart(2, "0")}-15`;
     const iso = d => d.toISOString().slice(0, 10);
-    const completa = arr => {
+    // valor(m, i): dato del mes m (0-11) del año i. customdata: [año, trimestre centrado en m, mes]
+    const completa = valor => {
       const fx = [], fy = [], fd = [];
       D.anios.forEach((a, i) => TRIM.forEach((t, m) => {
-        const v = arr[t][i];
-        if (v !== null) { fx.push(fecha(a, m)); fy.push(v); fd.push([a, t]); }
+        const v = valor(m, i);
+        if (v !== null) { fx.push(fecha(a, m)); fy.push(v); fd.push([a, t, MESES[m]]); }
       }));
       return { fx, fy, fd };
     };
-    const cr = completa(D.roni), cv = completa(S);
+    const cr = completa((m, i) => D.roni[TRIM[m]][i]), cv = completa((m, i) => S.mensual[m][i]);
 
     // Franja verde de 3 meses sobre el trimestre marcado, cruzando ambos paneles
     const marca = [], textos = [];
@@ -133,13 +135,13 @@ const colorRoni = v => v <= -0.5 ? AZUL : v >= 0.5 ? ROJO : GRIS;
         hovertemplate: `<b>%{customdata[1]} %{customdata[0]}</b><br>RONI: %{y:.2f} °C<extra></extra>` },
       { x: cv.fx, y: cv.fy, customdata: cv.fd, type: "scatter", mode: "lines", yaxis: "y2",
         line: { color: "#333", width: 1.2 },
-        hovertemplate: `<b>%{customdata[1]} %{customdata[0]}</b><br>Viento: %{y:.2f} ${S.unidad}<extra></extra>` },
+        hovertemplate: `<b>%{customdata[2]} %{customdata[0]}</b><br>Viento: %{y:.2f} ${S.unidad}<extra></extra>` },
     ], {
       margin: { t: 10, r: 20, b: 30, l: 65 }, showlegend: false, uirevision: "zoom", bargap: 0,
       xaxis: { type: "date", anchor: "y2",
                range: [`${D.anios[0] - 1}-12-01`, `${D.anios.at(-1)}-12-31`] },
       yaxis: { domain: [0.56, 1], title: "RONI [°C]", zeroline: true },
-      yaxis2: { domain: [0, 0.44], title: `${sitio} [${S.unidad}]`, zeroline: false },
+      yaxis2: { domain: [0, 0.44], title: `${sitio} mensual<br>[${S.unidad}]`, zeroline: false },
       shapes: [...marca, ...[-0.5, 0.5].map(u => ({ type: "line", xref: "paper", x0: 0, x1: 1, yref: "y",
         y0: u, y1: u, line: { color: u < 0 ? AZUL : ROJO, width: 1, dash: "dot" } }))],
       annotations: textos,
