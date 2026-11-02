@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recurso renovable vs RONI</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 760px; margin: 1.5rem auto; padding: 0 1rem;
+         color: #222; line-height: 1.5; }
+  h1 { font-size: 1.4rem; margin-bottom: .3rem; }
+  h2 { font-size: 1.1rem; margin: 1.6rem 0 .4rem; }
+  .bajada { color: #555; margin-top: 0; }
+  .tarjetas { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.2rem 0; }
+  .tarjetas a { flex: 1 1 220px; display: block; padding: .9rem 1rem; border: 1px solid #ccc;
+                border-radius: 8px; text-decoration: none; color: inherit; }
+  .tarjetas a:hover { border-color: #2c5fbf; background: #f5f8ff; }
+  .tarjetas strong { display: block; font-size: 1.05rem; color: #2c5fbf; }
+  .tarjetas span { font-size: .9rem; color: #555; }
+  .nino { color: #c0392b; font-weight: 600; } .nina { color: #2c5fbf; font-weight: 600; }
+  ul { padding-left: 1.2rem; }
+  li { margin: .25rem 0; }
+  .nota { font-size: .85rem; color: #666; }
+</style>
+</head>
+<body>
+<h1>Recurso renovable vs RONI</h1>
+<p class="bajada">Relación entre el recurso eólico y solar de los parques y el estado de El Niño – La Niña.</p>
+
+<div class="tarjetas">
+  <a href="viento/index.html"><strong>Viento →</strong>
+    <span>Parques eólicos y nodos Madryn y Centro</span></a>
+  <a href="sol/index.html"><strong>Sol →</strong>
+    <span>Radiación global en los parques solares</span></a>
+</div>
+
+<h2>Medias móviles trimestrales</h2>
+<p>Todos los datos son medias móviles de 3 meses, igual que el RONI. Cada trimestre se nombra por las
+iniciales de sus meses (DJF, JFM, …, NDJ) y se asigna al año de su mes central. Por ejemplo, DJF 1998 es
+diciembre 1997 – febrero 1998. Los trimestres a los que les falta algún mes se descartan.</p>
+<p>En cada página, el gráfico de dispersión compara el recurso y el RONI del trimestre elegido, año por
+año, junto con la recta de regresión y su correlación (r). Debajo están las series completas: un clic
+en un año lo marca en todos los gráficos.</p>
+
+<h2>Viento</h2>
+<ul>
+  <li>Reanálisis MERRA-2 a 50 m, reescalado con las mediciones de cada parque, en m/s.</li>
+  <li>Nodos Madryn y Centro: el viento de cada parque se divide por su climatología mensual (normalización)
+    y se promedia ponderando por potencia instalada. Un valor de 1 corresponde a un trimestre normal.</li>
+</ul>
+
+<h2>Sol</h2>
+<ul>
+  <li>Reanálisis MERRA-2, variable SWGDN (radiación global incidente en superficie), en W/m², tomada en el
+    punto de grilla más cercano a cada parque.</li>
+  <li>En la serie inferior se muestra la anomalía del recurso: el porcentaje respecto de la climatología
+    mensual, para que no domine el ciclo anual.</li>
+  <li class="nota">Por ahora faltan PSSJSU y San Rafael (no hay series MERRA extraídas para esos puntos).</li>
+</ul>
+
+<h2>El RONI</h2>
+<p>El <a href="https://www.cpc.ncep.noaa.gov/data/indices/RONI.ascii.txt">Relative Oceanic Niño Index (RONI)</a>
+es el índice que usa NOAA, desde febrero de 2026, para monitorear y pronosticar El Niño – La Niña.
+Es la anomalía de temperatura del mar en la región Niño 3.4 (5°N–5°S, 120°O–170°O) menos la anomalía media
+de todo el trópico (20°N–20°S), reescalada para tener la misma amplitud que el ONI tradicional y promediada
+en 3 meses. Al restar el calentamiento general del trópico, el índice es menos sensible al período de
+referencia elegido.</p>
+<p>Un trimestre se considera <span class="nino">Niño</span> si el RONI es ≥ 0,5 °C y
+<span class="nina">Niña</span> si es ≤ −0,5 °C. Para hablar de un evento, NOAA exige al menos cinco
+trimestres consecutivos que superen el umbral.</p>
+<p class="nota">Fuentes: <a href="https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/ONI_v5.php">CPC – NOAA</a>
+· <a href="https://www.weather.gov/media/notification/pdf_2026/pns26-05_Relative_ONI.pdf">Anuncio del cambio al RONI (NWS, ene 2026)</a></p>
+</body>
+</html>
