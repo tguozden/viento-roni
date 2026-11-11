@@ -15,7 +15,7 @@
   select { font-size: .95rem; padding: .25rem .4rem; margin-left: .3rem; }
   .stats { font-size: .9rem; color: #444; margin: .3rem 0; }
   .graf { width: 100%; height: 420px; }
-  #g2 { height: 300px; }
+  #g2 { height: 480px; }
   .volver { font-size: .85rem; margin: 0 0 .3rem; }
   .nota { font-size: .85rem; color: #666; }
 </style>
@@ -47,8 +47,10 @@ mes de RONI máximo y sus dos vecinos (el trimestre de máxima anomalía). Los N
 los débiles 5–7, así que con el evento completo la intensidad se mezcla con la duración y con las estaciones que
 abarca cada evento. «Duración × RONI máximo» (meses·°C) junta ambas cosas en un solo número. Con 13 eventos,
 un r de ±0,55 está apenas en el límite de p = 0,05.</p>
-<p>Serie del RONI mensual. Los 13 eventos van en color pleno y el resto atenuado; la franja gris marca la
-ventana de cada evento. Un clic en un evento (arriba o abajo) lo resalta en ambos gráficos.</p>
+<p>Arriba, el RONI mensual: los 13 eventos van en color pleno y el resto atenuado. Abajo, el viento mensual del
+sitio elegido (anomalía %), con un trazo rojo por evento en el valor medio de su ventana, que es el que se grafica
+en la dispersión. La franja gris marca la ventana de cada evento. Un clic en un evento (arriba o abajo) lo resalta
+en ambos gráficos.</p>
 <div class="graf" id="g2"></div>
 
 <script>
@@ -149,6 +151,14 @@ const inicioMes = i => `${D.meses[i]}-01`;
 
 function dibujarSerie() {
   const idx = D.meses.map((_, i) => i).filter(i => D.roni[i] !== null);
+  const S = D.series[selS.value].v, iv = D.meses.map((_, i) => i).filter(i => S[i] !== null);
+  // media del viento en la ventana de cada evento, como segmento horizontal (null separa eventos)
+  const mx = [], my = [], mc = [];
+  D.eventos.forEach((ev, e) => { const [i0, i1] = ventana(ev), w = [];
+    for (let i = i0; i <= i1; i++) if (S[i] !== null) w.push(S[i]);
+    if (!w.length) return;
+    const m = media(w), cd = [D.meses[i0], `Niño ${nombreEv(ev)}`, e];
+    mx.push(inicioMes(i0), finMes(i1), null); my.push(m, m, null); mc.push(cd, cd, cd); });
   const col = i => { const v = D.roni[i], c = v >= 0.5 ? "192,57,43" : v <= -0.5 ? "44,95,191" : "136,136,136";
     const a = enEvento[i] === null ? 0.25 : (marcado === null || enEvento[i] === marcado ? 1 : 0.55);
     return `rgba(${c},${a})`; };
@@ -161,9 +171,16 @@ function dibujarSerie() {
     { x: idx.map(fecha), y: idx.map(i => D.roni[i]), type: "bar", marker: { color: idx.map(col) },
       customdata: idx.map(i => [D.meses[i], enEvento[i] === null ? "" : `Niño ${nombreEv(D.eventos[enEvento[i]])}`, enEvento[i] ?? -1]),
       hovertemplate: "<b>%{customdata[0]}</b><br>RONI: %{y:.2f} °C<br>%{customdata[1]}<extra></extra>" },
+    { x: iv.map(fecha), y: iv.map(i => S[i]), type: "scatter", mode: "lines", yaxis: "y2", line: { color: "#999", width: 0.8 },
+      customdata: iv.map(i => [D.meses[i], enEvento[i] === null ? "" : `Niño ${nombreEv(D.eventos[enEvento[i]])}`, enEvento[i] ?? -1]),
+      hovertemplate: "<b>%{customdata[0]}</b><br>Viento: %{y:+.1f} %<br>%{customdata[1]}<extra></extra>" },
+    { x: mx, y: my, type: "scatter", mode: "lines", yaxis: "y2", line: { color: ROJO, width: 4 }, connectgaps: false,
+      customdata: mc, hovertemplate: "<b>%{customdata[1]}</b><br>Media en la ventana: %{y:+.1f} %<extra></extra>" },
   ], {
     margin: { t: 10, r: 20, b: 30, l: 65 }, showlegend: false, bargap: 0, uirevision: "zoom",
-    xaxis: { type: "date" }, yaxis: { title: "RONI [°C]", zeroline: true },
+    xaxis: { type: "date", anchor: "y2" },
+    yaxis: { domain: [0.52, 1], title: "RONI [°C]", zeroline: true },
+    yaxis2: { domain: [0, 0.46], title: `${selS.value}<br>viento [%]`, zeroline: true, zerolinecolor: "#bbb" },
     shapes: [...bandas, ...[-0.5, 0.5].map(u => ({ type: "line", xref: "paper", x0: 0, x1: 1, yref: "y", y0: u, y1: u,
       line: { color: u < 0 ? AZUL : ROJO, width: 1, dash: "dot" } }))],
     annotations: textos,
@@ -172,8 +189,8 @@ function dibujarSerie() {
 
 function todo() { dibujar(); dibujarSerie(); }
 const marcar = e => { marcado = (e === marcado || e < 0) ? null : e; todo(); };
-selS.onchange = selI.onchange = dibujar;
-selV.onchange = todo;
+selI.onchange = dibujar;
+selS.onchange = selV.onchange = todo;
 todo();
 document.getElementById("g1").on("plotly_click", ev => { const p = ev.points.find(p => p.curveNumber === 0); if (p) marcar(p.customdata[3]); });
 document.getElementById("g2").on("plotly_click", ev => marcar(ev.points[0].customdata[2]));
