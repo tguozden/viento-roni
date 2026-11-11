@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eventos Niño y viento</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="datos.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; color: #222; line-height: 1.45; }
+  h1 { font-size: 1.3rem; margin-bottom: .4rem; }
+  p { margin: .4rem 0; }
+  .controles { display: flex; gap: 1.2rem; flex-wrap: wrap; margin: .6rem 0 .3rem; }
+  label { font-size: .9rem; }
+  select { font-size: .95rem; padding: .25rem .4rem; margin-left: .3rem; }
+  .stats { font-size: .9rem; color: #444; margin: .3rem 0; }
+  .graf { width: 100%; height: 420px; }
+  #g2 { height: 300px; }
+  .volver { font-size: .85rem; margin: 0 0 .3rem; }
+  .nota { font-size: .85rem; color: #666; }
+</style>
+</head>
+<body>
+<p class="volver"><a href="../index.html">← Inicio</a></p>
+<h1>Intensidad del Niño y viento</h1>
+<p>Si se miran todos los Niños juntos, el viento no muestra una tendencia definida. Aquí se compara cada
+evento Niño por separado, para ver si la <b>intensidad</b> del evento distingue unos de otros.</p>
+<p>Cada punto es un evento: al menos 5 meses seguidos con RONI ≥ 0,5 °C (el RONI de cada mes es el del
+trimestre centrado en él). Para cada evento se promedia el viento en la ventana elegida, como anomalía en %
+respecto de la climatología de cada mes (MERRA-2 reescalado; nodos ponderados por potencia).</p>
+<div class="controles">
+  <label>Sitio <select id="sitio"></select></label>
+  <label>Ventana <select id="ventana">
+    <option value="evento">evento completo</option>
+    <option value="pico" selected>3 meses de RONI máximo</option>
+  </select></label>
+  <label>Intensidad <select id="intens">
+    <option value="medio">RONI medio en la ventana</option>
+    <option value="pico">RONI máximo del evento</option>
+    <option value="dur" selected>duración × RONI máximo</option>
+  </select></label>
+</div>
+<div class="stats" id="stats"></div>
+<div class="graf" id="g1"></div>
+<p class="nota">Ventanas: «evento completo» promedia todos los meses del evento; «3 meses de RONI máximo» toma el
+mes de RONI máximo y sus dos vecinos (el trimestre de máxima anomalía). Los Niños fuertes duran 12–17 meses y
+los débiles 5–7, así que con el evento completo la intensidad se mezcla con la duración y con las estaciones que
+abarca cada evento. «Duración × RONI máximo» (meses·°C) junta ambas cosas en un solo número. Con 13 eventos,
+un r de ±0,55 está apenas en el límite de p = 0,05.</p>
+<p>Serie del RONI mensual. Los 13 eventos van en color pleno y el resto atenuado; la franja gris marca la
+ventana de cada evento. Un clic en un evento (arriba o abajo) lo resalta en ambos gráficos.</p>
+<div class="graf" id="g2"></div>
+
+<script>
+const D = DATOS;
+const ROJO = "#c0392b";
+const anio = D.meses.map(m => +m.slice(0, 4));
+const media = a => a.reduce((s, x) => s + x, 0) / a.length;
+
+function regresion(x, y) {
+  const n = x.length, mx = media(x), my = media(y);
+  let sxy = 0, sxx = 0, syy = 0;
+  for (let i = 0; i < n; i++) { sxy += (x[i] - mx) * (y[i] - my); sxx += (x[i] - mx) ** 2; syy += (y[i] - my) ** 2; }
+  const m = sxy / sxx;
+  return { m, b: my - m * mx, r: sxy / Math.sqrt(sxx * syy), n };
+}
+const rangos = a => { const o = a.map((v, i) => [v, i]).sort((p, q) => p[0] - q[0]), r = Array(a.length);
+  for (let i = 0; i < o.length;) { let j = i; while (j + 1 < o.length && o[j + 1][0] === o[i][0]) j++;
+    for (let k = i; k <= j; k++) r[o[k][1]] = (i + j) / 2; i = j + 1; } return r; };
+// p bilateral de r con t de Student (n-2 gl), vía la beta incompleta por fracción continua
+function pValor(r, n) {
+  const df = n - 2, t2 = r * r * df / (1 - r * r);
+  return betaInc(df / (df + t2), df / 2, 0.5);
+}
+function betaInc(x, a, b) {
+  if (x <= 0) return 0; if (x >= 1) return 1;
+  const lg = z => { const c = [76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5];
+    let y = z, t = z + 5.5; t -= (z + 0.5) * Math.log(t); let s = 1.000000000190015; for (const ci of c) s += ci / ++y;
+    return -t + Math.log(2.5066282746310005 * s / z); };
+  const bt = Math.exp(lg(a + b) - lg(a) - lg(b) + a * Math.log(x) + b * Math.log(1 - x));
+  const cf = (x, a, b) => { let c = 1, d = 1 / (1 - (a + b) * x / (a + 1)), h = d;
+    for (let m = 1; m < 200; m++) { const m2 = 2 * m;
+      let aa = m * (b - m) * x / ((a + m2 - 1) * (a + m2)); d = 1 / (1 + aa * d); c = 1 + aa / c; h *= d * c;
+      aa = -(a + m) * (a + b + m) * x / ((a + m2) * (a + m2 + 1)); d = 1 / (1 + aa * d); c = 1 + aa / c; h *= d * c; }
+    return h; };
+  return x < (a + 1) / (a + b + 2) ? bt * cf(x, a, b) / a : 1 - bt * cf(1 - x, b, a) / b;
+}
+const fmtP = p => p < 0.001 ? "< 0,001" : p.toFixed(p < 0.01 ? 3 : 2).replace(".", ",");
+const fmt = (v, d = 2) => v.toFixed(d).replace(".", ",");
+
+const selS = document.getElementById("sitio"), selI = document.getElementById("intens"), selV = document.getElementById("ventana");
+const AZUL = "#2c5fbf", GRIS = "#888";
+let marcado = null;  // índice del evento resaltado
+const ventana = ev => selV.value === "pico" ? [Math.max(ev.ini, ev.pico - 1), Math.min(ev.fin, ev.pico + 1)] : [ev.ini, ev.fin];
+{
+  const g = {};
+  Object.entries(D.series).forEach(([k, S]) => (g[S.grupo] ??= []).push(k));
+  Object.entries(g).forEach(([nom, ks]) => { const og = document.createElement("optgroup"); og.label = nom;
+    ks.forEach(k => og.appendChild(new Option(k, k))); selS.appendChild(og); });
+}
+
+function dibujar() {
+  const S = D.series[selS.value].v, pts = [];
+  D.eventos.forEach((ev, e) => {
+    const [i0, i1] = ventana(ev), w = [], r = [];
+    for (let i = i0; i <= i1; i++) { if (S[i] !== null) w.push(S[i]); if (D.roni[i] !== null) r.push(D.roni[i]); }
+    if (w.length < (i1 - i0 + 1) * 0.8) return;
+    const dur = ev.fin - ev.ini + 1;
+    const x = { medio: media(r), pico: D.roni[ev.pico], dur: dur * D.roni[ev.pico] }[selI.value];
+    pts.push({ x, y: media(w), nombre: nombreEv(ev), e, desde: D.meses[i0], hasta: D.meses[i1], dur });
+  });
+  const x = pts.map(p => p.x), y = pts.map(p => p.y), R = regresion(x, y);
+  const rs = regresion(rangos(x), rangos(y)).r;
+  document.getElementById("stats").innerHTML =
+    `Pearson r = ${fmt(R.r)} (p ≈ ${fmtP(pValor(R.r, R.n))}) · Spearman ρ = ${fmt(rs)} (p ≈ ${fmtP(pValor(rs, R.n))}) · ` +
+    (selI.value === "dur" ? `pendiente ${fmt(R.m, 2)} % por mes·°C` : `pendiente ${fmt(R.m, 1)} % por °C`) + ` · n = ${R.n} eventos`;
+  const pad = 0.05 * (Math.max(...x) - Math.min(...x)), xr = [Math.min(...x) - pad, Math.max(...x) + pad];
+  const k = pts.findIndex(p => p.e === marcado);
+  Plotly.react("g1", [
+    { x, y, text: pts.map(p => p.nombre), mode: "markers+text", type: "scatter",
+      textposition: pts.map((_, k) => k % 2 ? "bottom center" : "top center"), textfont: { size: 11, color: "#555" },
+      customdata: pts.map(p => [p.desde, p.hasta, p.dur, p.e]),
+      marker: { size: 11, color: ROJO, opacity: 0.8, line: { width: 0.5, color: "#fff" } },
+      hovertemplate: "<b>Niño %{text}</b><br>Ventana %{customdata[0]} a %{customdata[1]}<br>Duración del evento: %{customdata[2]} meses" +
+                     `<br>${etiquetaX()}: %{x:.2f}<br>Viento: %{y:+.1f} %<extra></extra>` },
+    { x: xr, y: xr.map(v => R.m * v + R.b), mode: "lines", type: "scatter", line: { color: "#000", width: 1.2 }, hoverinfo: "skip" },
+    { x: k < 0 ? [] : [x[k]], y: k < 0 ? [] : [y[k]], mode: "markers", type: "scatter", hoverinfo: "skip",
+      marker: { size: 20, color: "rgba(0,0,0,0)", line: { width: 2, color: "#000" } } },
+  ], {
+    margin: { t: 10, r: 20, b: 45, l: 65 }, showlegend: false,
+    xaxis: { title: etiquetaX(), zeroline: false },
+    yaxis: { title: `${selS.value}: anomalía de viento [%]`, zeroline: true, zerolinecolor: "#bbb" },
+  }, { responsive: true, displaylogo: false });
+}
+function etiquetaX() {
+  return { medio: "RONI medio en la ventana [°C]", pico: "RONI máximo del evento [°C]",
+           dur: "Duración × RONI máximo [meses·°C]" }[selI.value];
+}
+function nombreEv(ev) {
+  return anio[ev.ini] === anio[ev.fin] ? `${anio[ev.ini]}` : `${anio[ev.ini]}–${String(anio[ev.fin]).slice(2)}`;
+}
+
+// Serie del RONI: meses de eventos en color pleno, el resto atenuado; franja gris = ventana de cada evento
+const enEvento = D.meses.map(() => null);
+D.eventos.forEach((ev, e) => { for (let i = ev.ini; i <= ev.fin; i++) enEvento[i] = e; });
+const fecha = i => `${D.meses[i]}-15`;
+const finMes = i => { const [a, m] = D.meses[i].split("-").map(Number); return new Date(Date.UTC(a, m, 1)).toISOString().slice(0, 10); };
+const inicioMes = i => `${D.meses[i]}-01`;
+
+function dibujarSerie() {
+  const idx = D.meses.map((_, i) => i).filter(i => D.roni[i] !== null);
+  const col = i => { const v = D.roni[i], c = v >= 0.5 ? "192,57,43" : v <= -0.5 ? "44,95,191" : "136,136,136";
+    const a = enEvento[i] === null ? 0.25 : (marcado === null || enEvento[i] === marcado ? 1 : 0.55);
+    return `rgba(${c},${a})`; };
+  const bandas = D.eventos.map((ev, e) => { const [i0, i1] = ventana(ev);
+    return { type: "rect", xref: "x", yref: "paper", x0: inicioMes(i0), x1: finMes(i1), y0: 0, y1: 1, layer: "below",
+             fillcolor: e === marcado ? "rgba(0,0,0,0.18)" : "rgba(0,0,0,0.07)", line: { width: 0 } }; });
+  const textos = D.eventos.map((ev, e) => ({ x: fecha(ev.pico), y: D.roni[ev.pico], yshift: 12, showarrow: false,
+    text: e === marcado ? `<b>${nombreEv(ev)}</b>` : nombreEv(ev), font: { size: 10, color: "#555" } }));
+  Plotly.react("g2", [
+    { x: idx.map(fecha), y: idx.map(i => D.roni[i]), type: "bar", marker: { color: idx.map(col) },
+      customdata: idx.map(i => [D.meses[i], enEvento[i] === null ? "" : `Niño ${nombreEv(D.eventos[enEvento[i]])}`, enEvento[i] ?? -1]),
+      hovertemplate: "<b>%{customdata[0]}</b><br>RONI: %{y:.2f} °C<br>%{customdata[1]}<extra></extra>" },
+  ], {
+    margin: { t: 10, r: 20, b: 30, l: 65 }, showlegend: false, bargap: 0, uirevision: "zoom",
+    xaxis: { type: "date" }, yaxis: { title: "RONI [°C]", zeroline: true },
+    shapes: [...bandas, ...[-0.5, 0.5].map(u => ({ type: "line", xref: "paper", x0: 0, x1: 1, yref: "y", y0: u, y1: u,
+      line: { color: u < 0 ? AZUL : ROJO, width: 1, dash: "dot" } }))],
+    annotations: textos,
+  }, { responsive: true, displaylogo: false });
+}
+
+function todo() { dibujar(); dibujarSerie(); }
+const marcar = e => { marcado = (e === marcado || e < 0) ? null : e; todo(); };
+selS.onchange = selI.onchange = dibujar;
+selV.onchange = todo;
+todo();
+document.getElementById("g1").on("plotly_click", ev => { const p = ev.points.find(p => p.curveNumber === 0); if (p) marcar(p.customdata[3]); });
+document.getElementById("g2").on("plotly_click", ev => marcar(ev.points[0].customdata[2]));
+</script>
+</body>
+</html>
