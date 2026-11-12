@@ -34,10 +34,9 @@ respecto de la climatología de cada mes (MERRA-2 reescalado; nodos ponderados p
     <option value="evento">evento completo</option>
     <option value="pico" selected>3 meses de RONI máximo</option>
   </select></label>
-  <label>Intensidad <select id="intens">
-    <option value="medio">RONI medio en la ventana</option>
+  <label>Medida del evento <select id="intens">
+    <option value="meses" selected>duración del evento</option>
     <option value="pico">RONI máximo del evento</option>
-    <option value="dur" selected>duración × RONI máximo</option>
   </select></label>
 </div>
 <div class="stats" id="stats"></div>
@@ -45,7 +44,7 @@ respecto de la climatología de cada mes (MERRA-2 reescalado; nodos ponderados p
 <p class="nota">Ventanas: «evento completo» promedia todos los meses del evento; «3 meses de RONI máximo» toma el
 mes de RONI máximo y sus dos vecinos (el trimestre de máxima anomalía). Los Niños fuertes duran 12–17 meses y
 los débiles 5–7, así que con el evento completo la intensidad se mezcla con la duración y con las estaciones que
-abarca cada evento. «Duración × RONI máximo» (meses·°C) junta ambas cosas en un solo número. Con 13 eventos,
+abarca cada evento. Con 13 eventos,
 un r de ±0,55 está apenas en el límite de p = 0,05.</p>
 <p>Arriba, el RONI mensual: los 13 eventos van en color pleno y el resto atenuado. Abajo, el viento mensual del
 sitio elegido (anomalía %), con un trazo rojo por evento en el valor medio de su ventana, que es el que se grafica
@@ -104,18 +103,18 @@ const ventana = ev => selV.value === "pico" ? [Math.max(ev.ini, ev.pico - 1), Ma
 function dibujar() {
   const S = D.series[selS.value].v, pts = [];
   D.eventos.forEach((ev, e) => {
-    const [i0, i1] = ventana(ev), w = [], r = [];
-    for (let i = i0; i <= i1; i++) { if (S[i] !== null) w.push(S[i]); if (D.roni[i] !== null) r.push(D.roni[i]); }
+    const [i0, i1] = ventana(ev), w = [];
+    for (let i = i0; i <= i1; i++) if (S[i] !== null) w.push(S[i]);
     if (w.length < (i1 - i0 + 1) * 0.8) return;
     const dur = ev.fin - ev.ini + 1;
-    const x = { medio: media(r), pico: D.roni[ev.pico], dur: dur * D.roni[ev.pico] }[selI.value];
+    const x = selI.value === "meses" ? dur : D.roni[ev.pico];
     pts.push({ x, y: media(w), nombre: nombreEv(ev), e, desde: D.meses[i0], hasta: D.meses[i1], dur });
   });
   const x = pts.map(p => p.x), y = pts.map(p => p.y), R = regresion(x, y);
   const rs = regresion(rangos(x), rangos(y)).r;
   document.getElementById("stats").innerHTML =
     `Pearson r = ${fmt(R.r)} (p ≈ ${fmtP(pValor(R.r, R.n))}) · Spearman ρ = ${fmt(rs)} (p ≈ ${fmtP(pValor(rs, R.n))}) · ` +
-    (selI.value === "dur" ? `pendiente ${fmt(R.m, 2)} % por mes·°C` : `pendiente ${fmt(R.m, 1)} % por °C`) + ` · n = ${R.n} eventos`;
+    (selI.value === "meses" ? `pendiente ${fmt(R.m, 2)} % por mes de duración` : `pendiente ${fmt(R.m, 1)} % por °C`) + ` · n = ${R.n} eventos`;
   const pad = 0.05 * (Math.max(...x) - Math.min(...x)), xr = [Math.min(...x) - pad, Math.max(...x) + pad];
   const k = pts.findIndex(p => p.e === marcado);
   Plotly.react("g1", [
@@ -124,7 +123,7 @@ function dibujar() {
       customdata: pts.map(p => [p.desde, p.hasta, p.dur, p.e]),
       marker: { size: 11, color: ROJO, opacity: 0.8, line: { width: 0.5, color: "#fff" } },
       hovertemplate: "<b>Niño %{text}</b><br>Ventana %{customdata[0]} a %{customdata[1]}<br>Duración del evento: %{customdata[2]} meses" +
-                     `<br>${etiquetaX()}: %{x:.2f}<br>Viento: %{y:+.1f} %<extra></extra>` },
+                     `<br>${etiquetaX()}: %{x:${selI.value === "meses" ? ".0f" : ".2f"}}<br>Viento: %{y:+.1f} %<extra></extra>` },
     { x: xr, y: xr.map(v => R.m * v + R.b), mode: "lines", type: "scatter", line: { color: "#000", width: 1.2 }, hoverinfo: "skip" },
     { x: k < 0 ? [] : [x[k]], y: k < 0 ? [] : [y[k]], mode: "markers", type: "scatter", hoverinfo: "skip",
       marker: { size: 20, color: "rgba(0,0,0,0)", line: { width: 2, color: "#000" } } },
@@ -135,8 +134,7 @@ function dibujar() {
   }, { responsive: true, displaylogo: false });
 }
 function etiquetaX() {
-  return { medio: "RONI medio en la ventana [°C]", pico: "RONI máximo del evento [°C]",
-           dur: "Duración × RONI máximo [meses·°C]" }[selI.value];
+  return selI.value === "meses" ? "Duración del evento [meses]" : "RONI máximo del evento [°C]";
 }
 function nombreEv(ev) {
   return anio[ev.ini] === anio[ev.fin] ? `${anio[ev.ini]}` : `${anio[ev.ini]}–${String(anio[ev.fin]).slice(2)}`;
