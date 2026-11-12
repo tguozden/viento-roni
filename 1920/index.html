@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eventos Niño desde 1920</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="datos.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 1.5rem auto; padding: 0 1rem; color: #222; line-height: 1.45; }
+  h1 { font-size: 1.3rem; margin-bottom: .4rem; }
+  p { margin: .4rem 0; }
+  .graf { width: 100%; height: 460px; }
+  #g2 { height: 300px; }
+  #g3 { height: 380px; }
+  .volver { font-size: .85rem; margin: 0 0 .3rem; }
+  .nota { font-size: .85rem; color: #666; }
+</style>
+</head>
+<body>
+<p class="volver"><a href="../index.html">← Inicio</a></p>
+<h1>Eventos Niño desde 1920: duración × RONI medio</h1>
+<p>Cada punto es un evento Niño: al menos 5 meses seguidos con RONI ≥ 0,5 °C (se tolera un mes suelto por
+debajo). Se grafica la duración del evento contra su RONI medio. Las curvas grises unen eventos con el mismo
+<b>RONI acumulado</b> (duración × RONI medio, en meses·°C).</p>
+<div class="graf" id="g1"></div>
+<p>Abajo, el RONI acumulado de cada evento ordenado de menor a mayor, para ver si los eventos forman grupos.</p>
+<div class="graf" id="g2"></div>
+<p>La serie completa del RONI, con los eventos sombreados. Un clic en un evento lo resalta en los tres gráficos.</p>
+<div class="graf" id="g3"></div>
+<p class="nota" id="nota"></p>
+
+<script>
+const D = DATOS;
+const ROJO = "#c0392b", AZUL = "#2c5fbf", GRIS = "#999";
+const i0cpc = D.meses.indexOf(D.inicio_cpc);
+const ev = D.eventos.map(e => {
+  const v = D.roni.slice(e.ini, e.fin + 1);
+  const dur = v.length, medio = v.reduce((a, b) => a + b, 0) / dur;
+  return { ...e, dur, medio, max: Math.max(...v), acum: dur * medio,
+           nombre: D.meses[e.ini].slice(0, 4) + "–" + D.meses[e.fin].slice(2, 4),
+           recons: e.ini < i0cpc };
+});
+let sel = null;
+const fmt = x => x.toFixed(2).replace(".", ",");
+const fmt1 = x => x.toFixed(1).replace(".", ",");
+const texto = e => `<b>${e.nombre}</b> ${e.recons ? "(reconstruido)" : ""}<br>${D.meses[e.ini]} a ${D.meses[e.fin]}` +
+  `<br>duración ${e.dur} meses<br>RONI medio ${fmt(e.medio)} °C<br>RONI máximo ${fmt(e.max)} °C` +
+  `<br>acumulado ${fmt1(e.acum)} meses·°C`;
+const cfg = { responsive: true, displaylogo: false };
+
+function dibujar() {
+  const col = e => sel === null || sel === e ? (e.recons ? AZUL : ROJO) : "#ddd";
+  // 1) dispersión duración vs RONI medio con isolíneas de acumulado
+  const xmax = Math.max(...ev.map(e => e.dur)) + 3, ymin = 0.5, ymax = Math.max(...ev.map(e => e.medio)) + 0.15;
+  const iso = [5, 10, 15, 20, 25].map(k => {
+    const xs = []; for (let x = k / ymax; x <= xmax; x += 0.1) xs.push(x);
+    return { x: xs, y: xs.map(x => k / x), mode: "lines", line: { color: "#ccc", width: 1, dash: "dot" },
+             hoverinfo: "skip", showlegend: false };
+  });
+  const etiq = [5, 10, 15, 20, 25].filter(k => k / ymax < xmax - 1).map(k => {
+    const x = Math.min(xmax - 0.5, k / ymin), y = k / x;
+    return { x, y, text: k + " meses·°C", showarrow: false, font: { size: 10, color: GRIS },
+             xanchor: "right", yanchor: "bottom" };
+  });
+  const pts = grupo => ({
+    x: grupo.map(e => e.dur), y: grupo.map(e => e.medio), text: grupo.map(e => e.nombre.slice(0, 4)),
+    customdata: grupo.map(e => ev.indexOf(e)), hovertext: grupo.map(texto), hoverinfo: "text",
+    mode: "markers+text", textposition: "top center", textfont: { size: 10, color: "#555" },
+    marker: { size: 11, color: grupo.map(col), line: { color: "#fff", width: 1 } },
+    name: grupo[0].recons ? "1920–1949 (reconstruido)" : "1950– (CPC oficial)",
+  });
+  Plotly.react("g1", [...iso, pts(ev.filter(e => e.recons)), pts(ev.filter(e => !e.recons))], {
+    margin: { t: 10, r: 10, b: 50, l: 60 }, hovermode: "closest",
+    xaxis: { title: "Duración del evento [meses]", range: [3, xmax], zeroline: false },
+    yaxis: { title: "RONI medio del evento [°C]", range: [ymin, ymax], zeroline: false },
+    legend: { x: 0.01, y: 0.99, bgcolor: "rgba(255,255,255,.8)" }, annotations: etiq,
+  }, cfg);
+
+  // 2) acumulado ordenado
+  const ord = [...ev].sort((a, b) => a.acum - b.acum);
+  Plotly.react("g2", [{
+    type: "bar", x: ord.map(e => e.nombre), y: ord.map(e => e.acum),
+    customdata: ord.map(e => ev.indexOf(e)), hovertext: ord.map(texto), hoverinfo: "text",
+    marker: { color: ord.map(col) },
+  }], {
+    margin: { t: 10, r: 10, b: 70, l: 60 }, xaxis: { tickangle: -60, type: "category" },
+    yaxis: { title: "RONI acumulado [meses·°C]" }, bargap: 0.25,
+  }, cfg);
+
+  // 3) serie RONI
+  const sombras = ev.map(e => ({
+    type: "rect", xref: "x", yref: "paper", y0: 0, y1: 1, layer: "below", line: { width: 0 },
+    x0: D.meses[e.ini] + "-01", x1: D.meses[e.fin] + "-28",
+    fillcolor: sel === e ? "rgba(192,57,43,.35)" : "rgba(192,57,43,.12)",
+  }));
+  sombras.push({ type: "line", xref: "x", yref: "paper", x0: D.inicio_cpc + "-01", x1: D.inicio_cpc + "-01",
+                 y0: 0, y1: 1, line: { color: GRIS, dash: "dash", width: 1 } });
+  Plotly.react("g3", [{
+    x: D.meses.map(m => m + "-15"), y: D.roni, type: "bar",
+    marker: { color: D.roni.map(v => v >= 0.5 ? ROJO : v <= -0.5 ? AZUL : "#bbb") },
+    hovertemplate: "%{x|%Y-%m}: %{y:.2f} °C<extra></extra>",
+  }], {
+    margin: { t: 10, r: 10, b: 40, l: 60 }, shapes: sombras, bargap: 0,
+    xaxis: { type: "date" }, yaxis: { title: "RONI [°C]" },
+    annotations: [{ x: D.inicio_cpc + "-01", y: 1, yref: "paper", text: "← reconstruido | CPC →",
+                    showarrow: false, font: { size: 10, color: GRIS }, yanchor: "bottom" }],
+  }, cfg);
+}
+
+function clicEvento(i) { sel = sel === ev[i] ? null : ev[i]; dibujar(); }
+dibujar();
+document.getElementById("g1").on("plotly_click", d => { const c = d.points[0].customdata; if (c !== undefined) clicEvento(c); });
+document.getElementById("g2").on("plotly_click", d => clicEvento(d.points[0].customdata));
+document.getElementById("g3").on("plotly_click", d => {
+  const m = d.points[0].pointIndex, i = ev.findIndex(e => m >= e.ini && m <= e.fin);
+  if (i >= 0) clicEvento(i);
+});
+
+document.getElementById("nota").innerHTML =
+  `Desde ${D.inicio_cpc} se usa el RONI oficial del CPC. Antes se reconstruye con ERSSTv5 siguiendo el método del CPC:
+  anomalía Niño 3.4 menos anomalía media del trópico (20°S–20°N), con climatologías de 30 años renovadas cada 5,
+  media móvil de 3 meses y la escala de 1,181 que ajusta la reconstrucción al RONI oficial. En el período común
+  (1950–) la reconstrucción tiene r = 0,988 con el oficial y un error medio de 0,14 °C. Antes de 1950 las
+  mediciones de temperatura del mar son escasas, sobre todo durante la Segunda Guerra Mundial, así que esos
+  ${ev.filter(e => e.recons).length} eventos son menos confiables. Hay ${ev.length} eventos en total.`;
+</script>
+</body>
+</html>
