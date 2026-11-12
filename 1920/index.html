@@ -32,7 +32,7 @@ debajo). Se grafica la duración del evento contra su RONI medio. Las curvas gri
 
 <script>
 const D = DATOS;
-const ROJO = "#c0392b", AZUL = "#2c5fbf", GRIS = "#999";
+const ROJO = "#c0392b", AZUL = "#2c5fbf", ROSA = "#d6609e", GRIS = "#999";
 const i0cpc = D.meses.indexOf(D.inicio_cpc);
 const ev = D.eventos.map(e => {
   const v = D.roni.slice(e.ini, e.fin + 1);
@@ -50,7 +50,7 @@ const texto = e => `<b>${e.nombre}</b> ${e.recons ? "(reconstruido)" : ""}<br>${
 const cfg = { responsive: true, displaylogo: false };
 
 function dibujar() {
-  const col = e => sel === null || sel === e ? (e.recons ? AZUL : ROJO) : "#ddd";
+  const col = e => sel === null || sel === e ? (e.recons ? ROSA : ROJO) : "#ddd";
   // 1) dispersión duración vs RONI medio con isolíneas de acumulado
   const xmax = Math.max(...ev.map(e => e.dur)) + 3, ymin = 0.5, ymax = Math.max(...ev.map(e => e.medio)) + 0.15;
   const iso = [5, 10, 15, 20, 25].map(k => {
@@ -64,7 +64,7 @@ function dibujar() {
              xanchor: "right", yanchor: "bottom" };
   });
   const pts = grupo => ({
-    x: grupo.map(e => e.dur), y: grupo.map(e => e.medio), text: grupo.map(e => e.nombre.slice(0, 4)),
+    x: grupo.map(e => e.dur), y: grupo.map(e => e.medio), text: grupo.map(e => D.meses[e.ini]),
     customdata: grupo.map(e => ev.indexOf(e)), hovertext: grupo.map(texto), hoverinfo: "text",
     mode: "markers+text", textposition: "top center", textfont: { size: 10, color: "#555" },
     marker: { size: 11, color: grupo.map(col), line: { color: "#fff", width: 1 } },
