@@ -1,0 +1,7 @@
+serie,desvio,asimetria,periodo_pico_anios,frac_potencia_3_5,enganche_NDE,eventos_por_107
+RONI CPC 1950–2026,0.81,0.326,4.923,0.487,0.818,30.671
+observado (consigna),,0.33,,,0.8,26.0
+MPI-ESM1-2-HR RONI (escala propia),0.825,0.279,8.0,0.392,0.381,20.758
+MPI-ESM1-2-HR RONI (escala CPC),0.81,0.279,8.0,0.392,0.381,20.758
+MPI-ESM1-2-HR Nino3 (escala propia),0.629,0.35,8.0,0.358,0.192,16.692
+MPI-ESM1-2-HR Nino3 (escala CPC),0.81,0.35,8.0,0.358,0.213,20.116

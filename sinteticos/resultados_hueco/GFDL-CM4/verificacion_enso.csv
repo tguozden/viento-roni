@@ -1,0 +1,7 @@
+serie,desvio,asimetria,periodo_pico_anios,frac_potencia_3_5,enganche_NDE,eventos_por_107
+RONI CPC 1950–2026,0.81,0.326,4.923,0.487,0.818,30.671
+observado (consigna),,0.33,,,0.8,26.0
+GFDL-CM4 RONI (escala propia),0.78,-0.027,6.4,0.387,0.598,26.108
+GFDL-CM4 RONI (escala CPC),0.81,-0.027,6.4,0.387,0.571,26.964
+GFDL-CM4 Nino3 (escala propia),0.767,0.14,6.4,0.393,0.519,28.462
+GFDL-CM4 Nino3 (escala CPC),0.81,0.14,6.4,0.393,0.507,28.676

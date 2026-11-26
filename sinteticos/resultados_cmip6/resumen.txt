@@ -1,0 +1,66 @@
+Semilla 20261126. Observado: G1=5.58 G2=2.56 dip=0.0949; desvío RONI CPC 1950–2026 = 0.810
+Eventos CPC 1950–2026: 22, emparejados con la lista: 22; acum observados sin par (anteriores a 1950): [ 6.32  9.72 15.3  24.5 ]
+
+TABLA 1 — verificación del ENSO (desvío = RONI A; resto sobre RONI B)
+                   modelo  desvio  asimetria  periodo_pico  frac_pico_NDE  eventos_107 ENSO_irreal  distancia_obs
+observado (CPC 1950–2026)   0.809      0.326         4.923          0.818       26.000                      0.000
+                    CESM2   1.088      0.052         3.765          0.780       26.304          no          1.468
+                 GFDL-CM4   0.780     -0.027         6.400          0.571       26.964          sí          1.721
+            MPI-ESM1-2-HR   0.825      0.279         8.000          0.381       20.758          sí          1.321
+               CNRM-CM6-1   0.844     -0.363         3.048          0.650       29.960          sí          2.743
+                   MIROC6   0.947      0.642         4.923          0.250       18.725          sí          1.835
+               NorESM2-LM   1.333     -0.059         3.048          0.436       24.988          sí          2.676
+               ACCESS-CM2   0.832     -0.342         2.286          0.704       34.668          sí          2.753
+             IPSL-CM6A-LR   0.937     -0.100         3.368          0.319       27.642          sí          2.391
+              UKESM1-0-LL   0.915     -0.096         4.000          0.608       26.409          sí          1.870
+                 E3SM-1-0   0.853      0.237         3.200          0.542       28.034          no          1.013
+
+TABLA 2 — prueba del hueco, RONI B
+       modelo   años ENSO_irreal  eventos  p_dip_todos mejor_BIC     q  P(0 de 26)  ventanas  p_G1  p_G2  p_dip  p_G1_y_0_en_banda
+        CESM2 1200.0          no      295        0.899   2 comp. 0.251       0.001       110 0.000 0.000  0.036              0.000
+     GFDL-CM4  500.0          sí      126        0.464   2 comp. 0.230       0.001        40 0.275 0.000  0.025              0.000
+MPI-ESM1-2-HR  500.0          sí       97        0.516   1 comp. 0.165       0.009        40 0.325 0.075  0.150              0.000
+   CNRM-CM6-1  500.0          sí      140        0.784   2 comp. 0.371       0.000        40 0.000 0.000  0.000              0.000
+       MIROC6  800.0          sí      140        0.264   2 comp. 0.114       0.043        70 0.614 0.100  0.229              0.229
+   NorESM2-LM  501.0          sí      117        0.608   2 comp. 0.308       0.000        40 0.000 0.000  0.000              0.000
+   ACCESS-CM2  500.0          sí      162        0.993   1 comp. 0.290       0.000        40 0.000 0.000  0.000              0.000
+ IPSL-CM6A-LR 1200.0          sí      310        0.995   2 comp. 0.284       0.000       110 0.000 0.000  0.036              0.000
+  UKESM1-0-LL 1880.0          sí      464        0.891   2 comp. 0.248       0.001       178 0.062 0.011  0.006              0.000
+     E3SM-1-0  500.0          no      131        0.954   1 comp. 0.191       0.004        40 0.050 0.000  0.000              0.000
+
+TABLA 3 — sensibilidad (Niño3 B y RONI A)
+       modelo  indice  eventos  p_dip_todos mejor_BIC     q  P(0 de 26)  p_G1  p_G2  p_dip
+        CESM2 Nino3 B      297        0.829   2 comp. 0.202       0.003 0.000 0.000  0.018
+        CESM2  RONI A      320        0.951   2 comp. 0.197       0.003 0.027 0.000  0.009
+     GFDL-CM4 Nino3 B      134        0.856   1 comp. 0.201       0.003 0.000 0.000  0.025
+     GFDL-CM4  RONI A      122        0.603   1 comp. 0.230       0.001 0.250 0.000  0.050
+MPI-ESM1-2-HR Nino3 B       94        0.826   1 comp. 0.149       0.015 0.150 0.000  0.225
+MPI-ESM1-2-HR  RONI A       97        0.516   1 comp. 0.165       0.009 0.275 0.075  0.150
+   CNRM-CM6-1 Nino3 B      144        0.991   2 comp. 0.312       0.000 0.000 0.000  0.000
+   CNRM-CM6-1  RONI A      140        0.912   1 comp. 0.357       0.000 0.000 0.000  0.000
+       MIROC6 Nino3 B      137        0.398   2 comp. 0.124       0.032 0.586 0.000  0.086
+       MIROC6  RONI A      151        0.145   2 comp. 0.113       0.045 0.757 0.057  0.143
+   NorESM2-LM Nino3 B      114        0.407   2 comp. 0.254       0.000 0.025 0.000  0.050
+   NorESM2-LM  RONI A      138        0.944   2 comp. 0.174       0.007 0.125 0.000  0.000
+   ACCESS-CM2 Nino3 B      153        0.830   2 comp. 0.320       0.000 0.000 0.000  0.000
+   ACCESS-CM2  RONI A      166        0.916   1 comp. 0.301       0.000 0.000 0.000  0.000
+ IPSL-CM6A-LR Nino3 B      321        0.890   2 comp. 0.246       0.001 0.000 0.000  0.000
+ IPSL-CM6A-LR  RONI A      331        0.980   2 comp. 0.242       0.001 0.000 0.000  0.018
+  UKESM1-0-LL Nino3 B      453        0.730   2 comp. 0.243       0.001 0.051 0.000  0.028
+  UKESM1-0-LL  RONI A      484        0.956   2 comp. 0.252       0.001 0.062 0.006  0.000
+     E3SM-1-0 Nino3 B      139        0.771   2 comp. 0.230       0.001 0.025 0.000  0.000
+     E3SM-1-0  RONI A      137        0.953   1 comp. 0.182       0.005 0.050 0.000  0.000
+
+TABLA 4 — zos_ecuador (h) vs RONI B (rezago > 0: h adelanta)
+       modelo  rezago_max  r_max   r_0  rho_acum_caida  p_rho  r_simult_ok
+        CESM2           3  0.770 0.562           0.513    0.0        14398
+     GFDL-CM4           2  0.791 0.652           0.512    0.0         5998
+MPI-ESM1-2-HR           3  0.791 0.663           0.646    0.0         5998
+   CNRM-CM6-1           3  0.751 0.553           0.562    0.0         5998
+       MIROC6           4  0.762 0.637           0.802    0.0         9598
+   ACCESS-CM2           3  0.800 0.614           0.328    0.0         5998
+ IPSL-CM6A-LR           3  0.706 0.541           0.551    0.0        14398
+  UKESM1-0-LL           2  0.801 0.683           0.511    0.0        22558
+     E3SM-1-0           2  0.809 0.649           0.617    0.0         5998
+
+Modelos con mejor ENSO (figura 2): E3SM-1-0, CESM2

@@ -1,0 +1,248 @@
+[2026-11-25 14:43:40] === inicio de corrida: CESM2, GFDL-CM4, MPI-ESM1-2-HR, CNRM-CM6-1, MIROC6, NorESM2-LM, ACCESS-CM2, IPSL-CM6A-LR, UKESM1-0-LL, E3SM-1-0
+[2026-11-25 14:44:08] CESM2 tos: empezando
+    CESM2 tos meses 0-1200 de 14400 (1.7 min)
+    CESM2 tos meses 1200-2400 de 14400 (3.9 min)
+    CESM2 tos meses 2400-3600 de 14400 (6.1 min)
+    CESM2 tos meses 3600-4800 de 14400 (8.2 min)
+    CESM2 tos meses 4800-6000 de 14400 (10.5 min)
+    CESM2 tos meses 6000-7200 de 14400 (12.6 min)
+    CESM2 tos meses 7200-8400 de 14400 (14.8 min)
+    CESM2 tos meses 8400-9600 de 14400 (16.9 min)
+    CESM2 tos meses 9600-10800 de 14400 (19.1 min)
+    CESM2 tos meses 10800-12000 de 14400 (21.3 min)
+    CESM2 tos meses 12000-13200 de 14400 (23.5 min)
+    CESM2 tos meses 13200-14400 de 14400 (25.5 min)
+[2026-11-25 15:09:41] CESM2 tos: ok, miembro r1i1p1f1, grilla gn, 0001-01 a 1200-12 (1200.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas {'nino34': 1710, 'nino3': 2052, 'tropicos': 44876}, 25.6 min
+[2026-11-25 15:09:41] GFDL-CM4 tos: empezando
+[2026-11-25 15:26:40] === inicio de corrida: CESM2, GFDL-CM4, MPI-ESM1-2-HR, CNRM-CM6-1, MIROC6, NorESM2-LM, ACCESS-CM2, IPSL-CM6A-LR, UKESM1-0-LL, E3SM-1-0
+[2026-11-25 15:27:08] GFDL-CM4 tos: empezando
+    GFDL-CM4 tos meses 0-1200 de 6000 (1.1 min)
+    GFDL-CM4 tos meses 1200-2400 de 6000 (2.7 min)
+    GFDL-CM4 tos meses 2400-3600 de 6000 (3.8 min)
+    GFDL-CM4 tos meses 3600-4800 de 6000 (5.3 min)
+    GFDL-CM4 tos meses 4800-6000 de 6000 (6.5 min)
+[2026-11-25 15:33:42] GFDL-CM4 tos: ok, miembro r1i1p1f1, grilla gr, 0151-01 a 0650-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gr, celdas con peso {'nino34': 500, 'nino3': 600, 'tropicos': 11414}, 6.6 min
+[2026-11-25 15:33:42] GFDL-CM4: CSV escrito (tos), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gr
+[2026-11-25 15:33:42] MPI-ESM1-2-HR tos: empezando
+    MPI-ESM1-2-HR tos meses 0-1200 de 6000 (3.8 min)
+    MPI-ESM1-2-HR tos meses 1200-2400 de 6000 (7.7 min)
+    MPI-ESM1-2-HR tos meses 2400-3600 de 6000 (11.5 min)
+    MPI-ESM1-2-HR tos meses 3600-4800 de 6000 (15.3 min)
+    MPI-ESM1-2-HR tos meses 4800-6000 de 6000 (19.2 min)
+[2026-11-25 15:52:57] MPI-ESM1-2-HR tos: ok, miembro r1i1p1f1, grilla gn, 1850-01 a 2349-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'nino34': 2775, 'nino3': 3367, 'tropicos': 62488}, 19.2 min
+[2026-11-25 15:52:57] MPI-ESM1-2-HR: CSV escrito (tos), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 15:52:57] CNRM-CM6-1 tos: empezando
+    CNRM-CM6-1 tos meses 0-1200 de 6000 (1.6 min)
+    CNRM-CM6-1 tos meses 1200-2400 de 6000 (3.2 min)
+    CNRM-CM6-1 tos meses 2400-3600 de 6000 (5.4 min)
+    CNRM-CM6-1 tos meses 3600-4800 de 6000 (7.0 min)
+    CNRM-CM6-1 tos meses 4800-6000 de 6000 (8.8 min)
+[2026-11-25 16:01:47] CNRM-CM6-1 tos: ok, miembro r1i1p1f2, grilla gn, 1850-01 a 2349-12 (500.0 años), pesos: areacello piControl/r1i1p1f2/gn, celdas con peso {'nino34': 1450, 'nino3': 1736, 'tropicos': 19650}, 8.8 min
+[2026-11-25 16:01:47] CNRM-CM6-1: CSV escrito (tos), 6000 meses (500.0 años), miembro r1i1p1f2, grilla tos gn
+[2026-11-25 16:01:47] MIROC6 tos: empezando
+    MIROC6 tos meses 0-1200 de 9600 (1.2 min)
+    MIROC6 tos meses 1200-2400 de 9600 (2.9 min)
+    MIROC6 tos meses 2400-3600 de 9600 (4.6 min)
+    MIROC6 tos meses 3600-4800 de 9600 (6.3 min)
+    MIROC6 tos meses 4800-6000 de 9600 (7.9 min)
+    MIROC6 tos meses 6000-7200 de 9600 (9.7 min)
+    MIROC6 tos meses 7200-8400 de 9600 (11.4 min)
+    MIROC6 tos meses 8400-9600 de 9600 (12.8 min)
+[2026-11-25 16:14:39] MIROC6 tos: ok, miembro r1i1p1f1, grilla gn, 3200-01 a 3999-12 (800.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'nino34': 1000, 'nino3': 1197, 'tropicos': 14895}, 12.9 min
+[2026-11-25 16:14:39] MIROC6: CSV escrito (tos), 9600 meses (800.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 16:14:39] NorESM2-LM tos: empezando
+    NorESM2-LM tos meses 0-1200 de 6012 (1.8 min)
+    NorESM2-LM tos meses 1200-2400 de 6012 (3.6 min)
+    NorESM2-LM tos meses 2400-3600 de 6012 (5.7 min)
+    NorESM2-LM tos meses 3600-4800 de 6012 (7.5 min)
+    NorESM2-LM tos meses 4800-6000 de 6012 (9.4 min)
+    NorESM2-LM tos meses 6000-6012 de 6012 (9.6 min)
+[2026-11-25 16:24:17] NorESM2-LM tos: ok, miembro r1i1p1f1, grilla gn, 1600-01 a 2100-12 (501.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'nino34': 1950, 'nino3': 2340, 'tropicos': 36087}, 9.6 min
+[2026-11-25 16:24:17] NorESM2-LM: CSV escrito (tos), 6012 meses (501.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 16:24:17] ACCESS-CM2 tos: empezando
+    ACCESS-CM2 tos meses 0-1200 de 6000 (1.3 min)
+    ACCESS-CM2 tos meses 1200-2400 de 6000 (2.9 min)
+    ACCESS-CM2 tos meses 2400-3600 de 6000 (4.5 min)
+    ACCESS-CM2 tos meses 3600-4800 de 6000 (6.0 min)
+    ACCESS-CM2 tos meses 4800-6000 de 6000 (7.6 min)
+[2026-11-25 16:31:58] ACCESS-CM2 tos: ok, miembro r1i1p1f1, grilla gn, 0950-01 a 1449-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'nino34': 1500, 'nino3': 1800, 'tropicos': 27180}, 7.7 min
+[2026-11-25 16:31:58] ACCESS-CM2: CSV escrito (tos), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 16:31:58] IPSL-CM6A-LR tos: empezando
+    IPSL-CM6A-LR tos meses 0-1200 de 14400 (1.3 min)
+    IPSL-CM6A-LR tos meses 1200-2400 de 14400 (3.0 min)
+    IPSL-CM6A-LR tos meses 2400-3600 de 14400 (4.6 min)
+    IPSL-CM6A-LR tos meses 3600-4800 de 14400 (6.2 min)
+    IPSL-CM6A-LR tos meses 4800-6000 de 14400 (7.6 min)
+    IPSL-CM6A-LR tos meses 6000-7200 de 14400 (9.2 min)
+    IPSL-CM6A-LR tos meses 7200-8400 de 14400 (10.8 min)
+    IPSL-CM6A-LR tos meses 8400-9600 de 14400 (12.4 min)
+    IPSL-CM6A-LR tos meses 9600-10800 de 14400 (13.8 min)
+    IPSL-CM6A-LR tos meses 10800-12000 de 14400 (15.4 min)
+    IPSL-CM6A-LR tos meses 12000-13200 de 14400 (17.1 min)
+    IPSL-CM6A-LR tos meses 13200-14400 de 14400 (18.5 min)
+[2026-11-25 16:50:30] IPSL-CM6A-LR tos: ok, miembro r1i1p1f1, grilla gn, 1850-01 a 3049-12 (1200.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'nino34': 1450, 'nino3': 1736, 'tropicos': 19670}, 18.5 min
+[2026-11-25 16:50:30] IPSL-CM6A-LR: CSV escrito (tos), 14400 meses (1200.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 16:50:30] UKESM1-0-LL tos: empezando
+    UKESM1-0-LL tos meses 0-1200 de 22560 (1.3 min)
+    UKESM1-0-LL tos meses 1200-2400 de 22560 (2.9 min)
+    UKESM1-0-LL tos meses 2400-3600 de 22560 (4.5 min)
+    UKESM1-0-LL tos meses 3600-4800 de 22560 (6.1 min)
+    UKESM1-0-LL tos meses 4800-6000 de 22560 (7.5 min)
+    UKESM1-0-LL tos meses 6000-7200 de 22560 (9.1 min)
+    UKESM1-0-LL tos meses 7200-8400 de 22560 (10.7 min)
+    UKESM1-0-LL tos meses 8400-9600 de 22560 (12.4 min)
+    UKESM1-0-LL tos meses 9600-10800 de 22560 (13.7 min)
+    UKESM1-0-LL tos meses 10800-12000 de 22560 (15.3 min)
+    UKESM1-0-LL tos meses 12000-13200 de 22560 (16.9 min)
+    UKESM1-0-LL tos meses 13200-14400 de 22560 (18.5 min)
+    UKESM1-0-LL tos meses 14400-15600 de 22560 (19.9 min)
+    UKESM1-0-LL tos meses 15600-16800 de 22560 (21.5 min)
+    UKESM1-0-LL tos meses 16800-18000 de 22560 (23.1 min)
+    UKESM1-0-LL tos meses 18000-19200 de 22560 (24.7 min)
+    UKESM1-0-LL tos meses 19200-20400 de 22560 (26.0 min)
+    UKESM1-0-LL tos meses 20400-21600 de 22560 (27.6 min)
+    UKESM1-0-LL tos meses 21600-22560 de 22560 (28.8 min)
+[2026-11-25 17:19:25] UKESM1-0-LL tos: ok, miembro r1i1p1f2, grilla gn, 1960-01 a 3839-12 (1880.0 años), pesos: areacello piControl/r1i1p1f2/gn, celdas con peso {'nino34': 1450, 'nino3': 1736, 'tropicos': 19650}, 28.9 min
+[2026-11-25 17:19:25] UKESM1-0-LL: CSV escrito (tos), 22560 meses (1880.0 años), miembro r1i1p1f2, grilla tos gn
+[2026-11-25 17:19:25] E3SM-1-0 tos: empezando
+    E3SM-1-0 tos meses 0-1200 de 6000 (0.9 min)
+    E3SM-1-0 tos meses 1200-2400 de 6000 (2.2 min)
+    E3SM-1-0 tos meses 2400-3600 de 6000 (3.5 min)
+    E3SM-1-0 tos meses 3600-4800 de 6000 (4.9 min)
+    E3SM-1-0 tos meses 4800-6000 de 6000 (5.9 min)
+[2026-11-25 17:25:20] E3SM-1-0 tos: ok, miembro r1i1p1f1, grilla gr, 0001-01 a 0500-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gr, celdas con peso {'nino34': 500, 'nino3': 600, 'tropicos': 11484}, 5.9 min
+[2026-11-25 17:25:20] E3SM-1-0: CSV escrito (tos), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gr
+[2026-11-25 17:25:20] CESM2 zos: empezando
+    CESM2 zos meses 0-1200 de 14400 (1.8 min)
+    CESM2 zos meses 1200-2400 de 14400 (4.0 min)
+    CESM2 zos meses 2400-3600 de 14400 (5.8 min)
+    CESM2 zos meses 3600-4800 de 14400 (7.9 min)
+    CESM2 zos meses 4800-6000 de 14400 (9.7 min)
+    CESM2 zos meses 6000-7200 de 14400 (11.8 min)
+    CESM2 zos meses 7200-8400 de 14400 (13.9 min)
+    CESM2 zos meses 8400-9600 de 14400 (15.7 min)
+    CESM2 zos meses 9600-10800 de 14400 (17.8 min)
+    CESM2 zos meses 10800-12000 de 14400 (19.7 min)
+    CESM2 zos meses 12000-13200 de 14400 (21.7 min)
+    CESM2 zos meses 13200-14400 de 14400 (23.6 min)
+[2026-11-25 17:49:02] CESM2 zos: ok, miembro r1i1p1f1, grilla gn, 0001-01 a 1200-12 (1200.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'zos_ecuador': 5396, 'zos_oeste': 2888, 'zos_este': 2508}, 23.7 min
+[2026-11-25 17:49:02] CESM2: CSV escrito (tos + zos (grilla gn)), 14400 meses (1200.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 17:49:02] GFDL-CM4 zos: empezando
+    GFDL-CM4 zos meses 0-1200 de 6000 (1.0 min)
+    GFDL-CM4 zos meses 1200-2400 de 6000 (2.3 min)
+    GFDL-CM4 zos meses 2400-3600 de 6000 (3.3 min)
+    GFDL-CM4 zos meses 3600-4800 de 6000 (4.6 min)
+    GFDL-CM4 zos meses 4800-6000 de 6000 (5.5 min)
+[2026-11-25 17:54:35] GFDL-CM4 zos: ok, miembro r1i1p1f1, grilla gr, 0151-01 a 0650-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gr, celdas con peso {'zos_ecuador': 1582, 'zos_oeste': 833, 'zos_este': 749}, 5.5 min
+[2026-11-25 17:54:35] GFDL-CM4: CSV escrito (tos + zos (grilla gr)), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gr
+[2026-11-25 17:54:35] MPI-ESM1-2-HR zos: empezando
+    MPI-ESM1-2-HR zos meses 0-1200 de 6000 (3.9 min)
+    MPI-ESM1-2-HR zos meses 1200-2400 de 6000 (8.1 min)
+    MPI-ESM1-2-HR zos meses 2400-3600 de 6000 (12.2 min)
+    MPI-ESM1-2-HR zos meses 3600-4800 de 6000 (16.1 min)
+    MPI-ESM1-2-HR zos meses 4800-6000 de 6000 (19.9 min)
+[2026-11-25 18:14:35] MPI-ESM1-2-HR zos: ok, miembro r1i1p1f1, grilla gn, 1850-01 a 2349-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'zos_ecuador': 8677, 'zos_oeste': 4470, 'zos_este': 4207}, 20.0 min
+[2026-11-25 18:14:35] MPI-ESM1-2-HR: CSV escrito (tos + zos (grilla gn)), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 18:14:35] CNRM-CM6-1 zos: empezando
+    CNRM-CM6-1 zos meses 0-1200 de 6000 (1.3 min)
+    CNRM-CM6-1 zos meses 1200-2400 de 6000 (2.9 min)
+    CNRM-CM6-1 zos meses 2400-3600 de 6000 (4.5 min)
+    CNRM-CM6-1 zos meses 3600-4800 de 6000 (6.1 min)
+    CNRM-CM6-1 zos meses 4800-6000 de 6000 (7.6 min)
+[2026-11-25 18:22:14] CNRM-CM6-1 zos: ok, miembro r1i1p1f2, grilla gn, 1850-01 a 2349-12 (500.0 años), pesos: areacello piControl/r1i1p1f2/gn, celdas con peso {'zos_ecuador': 4482, 'zos_oeste': 2323, 'zos_este': 2159}, 7.7 min
+[2026-11-25 18:22:14] CNRM-CM6-1: CSV escrito (tos + zos (grilla gn)), 6000 meses (500.0 años), miembro r1i1p1f2, grilla tos gn
+[2026-11-25 18:22:14] MIROC6 zos: empezando
+    MIROC6 zos meses 0-1200 de 9600 (1.4 min)
+    MIROC6 zos meses 1200-2400 de 9600 (2.7 min)
+    MIROC6 zos meses 2400-3600 de 9600 (4.1 min)
+    MIROC6 zos meses 3600-4800 de 9600 (5.5 min)
+    MIROC6 zos meses 4800-6000 de 9600 (6.9 min)
+    MIROC6 zos meses 6000-7200 de 9600 (8.3 min)
+    MIROC6 zos meses 7200-8400 de 9600 (9.7 min)
+    MIROC6 zos meses 8400-9600 de 9600 (11.1 min)
+[2026-11-25 18:33:22] MIROC6 zos: ok, miembro r1i1p1f1, grilla gn, 3200-01 a 3999-12 (800.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'zos_ecuador': 3063, 'zos_oeste': 1575, 'zos_este': 1488}, 11.1 min
+[2026-11-25 18:33:22] MIROC6: CSV escrito (tos + zos (grilla gn)), 9600 meses (800.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 18:33:22] NorESM2-LM zos: empezando
+[2026-11-25 18:33:22] NorESM2-LM zos: NO DISPONIBLE en Pangeo (piControl/Omon)
+[2026-11-25 18:33:22] ACCESS-CM2 zos: empezando
+    ACCESS-CM2 zos meses 0-1200 de 6000 (1.6 min)
+    ACCESS-CM2 zos meses 1200-2400 de 6000 (3.2 min)
+    ACCESS-CM2 zos meses 2400-3600 de 6000 (4.8 min)
+    ACCESS-CM2 zos meses 3600-4800 de 6000 (6.3 min)
+    ACCESS-CM2 zos meses 4800-6000 de 6000 (7.9 min)
+[2026-11-25 18:41:23] ACCESS-CM2 zos: ok, miembro r1i1p1f1, grilla gn, 0950-01 a 1449-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'zos_ecuador': 4642, 'zos_oeste': 2400, 'zos_este': 2242}, 8.0 min
+[2026-11-25 18:41:23] ACCESS-CM2: CSV escrito (tos + zos (grilla gn)), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 18:41:23] IPSL-CM6A-LR zos: empezando
+    IPSL-CM6A-LR zos meses 0-1200 de 14400 (1.4 min)
+    IPSL-CM6A-LR zos meses 1200-2400 de 14400 (3.0 min)
+    IPSL-CM6A-LR zos meses 2400-3600 de 14400 (4.6 min)
+    IPSL-CM6A-LR zos meses 3600-4800 de 14400 (6.2 min)
+    IPSL-CM6A-LR zos meses 4800-6000 de 14400 (7.8 min)
+    IPSL-CM6A-LR zos meses 6000-7200 de 14400 (9.4 min)
+    IPSL-CM6A-LR zos meses 7200-8400 de 14400 (11.0 min)
+    IPSL-CM6A-LR zos meses 8400-9600 de 14400 (12.6 min)
+    IPSL-CM6A-LR zos meses 9600-10800 de 14400 (14.2 min)
+    IPSL-CM6A-LR zos meses 10800-12000 de 14400 (15.8 min)
+    IPSL-CM6A-LR zos meses 12000-13200 de 14400 (17.4 min)
+    IPSL-CM6A-LR zos meses 13200-14400 de 14400 (18.9 min)
+[2026-11-25 19:00:18] IPSL-CM6A-LR zos: ok, miembro r1i1p1f1, grilla gn, 1850-01 a 3049-12 (1200.0 años), pesos: areacello piControl/r1i1p1f1/gn, celdas con peso {'zos_ecuador': 4482, 'zos_oeste': 2323, 'zos_este': 2159}, 18.9 min
+[2026-11-25 19:00:18] IPSL-CM6A-LR: CSV escrito (tos + zos (grilla gn)), 14400 meses (1200.0 años), miembro r1i1p1f1, grilla tos gn
+[2026-11-25 19:00:18] UKESM1-0-LL zos: empezando
+    UKESM1-0-LL zos meses 0-1200 de 22560 (1.3 min)
+    UKESM1-0-LL zos meses 1200-2400 de 22560 (2.9 min)
+    UKESM1-0-LL zos meses 2400-3600 de 22560 (4.5 min)
+    UKESM1-0-LL zos meses 3600-4800 de 22560 (6.1 min)
+    UKESM1-0-LL zos meses 4800-6000 de 22560 (7.7 min)
+    UKESM1-0-LL zos meses 6000-7200 de 22560 (9.3 min)
+    UKESM1-0-LL zos meses 7200-8400 de 22560 (10.9 min)
+    UKESM1-0-LL zos meses 8400-9600 de 22560 (12.5 min)
+    UKESM1-0-LL zos meses 9600-10800 de 22560 (14.1 min)
+    UKESM1-0-LL zos meses 10800-12000 de 22560 (15.7 min)
+    UKESM1-0-LL zos meses 12000-13200 de 22560 (17.3 min)
+    UKESM1-0-LL zos meses 13200-14400 de 22560 (18.9 min)
+    UKESM1-0-LL zos meses 14400-15600 de 22560 (20.5 min)
+    UKESM1-0-LL zos meses 15600-16800 de 22560 (22.1 min)
+    UKESM1-0-LL zos meses 16800-18000 de 22560 (23.7 min)
+    UKESM1-0-LL zos meses 18000-19200 de 22560 (25.2 min)
+    UKESM1-0-LL zos meses 19200-20400 de 22560 (26.8 min)
+    UKESM1-0-LL zos meses 20400-21600 de 22560 (28.4 min)
+    UKESM1-0-LL zos meses 21600-22560 de 22560 (29.6 min)
+[2026-11-25 19:30:01] UKESM1-0-LL zos: ok, miembro r1i1p1f2, grilla gn, 1960-01 a 3839-12 (1880.0 años), pesos: areacello piControl/r1i1p1f2/gn, celdas con peso {'zos_ecuador': 4482, 'zos_oeste': 2323, 'zos_este': 2159}, 29.7 min
+[2026-11-25 19:30:02] UKESM1-0-LL: CSV escrito (tos + zos (grilla gn)), 22560 meses (1880.0 años), miembro r1i1p1f2, grilla tos gn
+[2026-11-25 19:30:02] E3SM-1-0 zos: empezando
+    E3SM-1-0 zos meses 0-1200 de 6000 (1.2 min)
+    E3SM-1-0 zos meses 1200-2400 de 6000 (2.3 min)
+    E3SM-1-0 zos meses 2400-3600 de 6000 (3.4 min)
+    E3SM-1-0 zos meses 3600-4800 de 6000 (4.5 min)
+    E3SM-1-0 zos meses 4800-6000 de 6000 (5.4 min)
+[2026-11-25 19:35:28] E3SM-1-0 zos: ok, miembro r1i1p1f1, grilla gr, 0001-01 a 0500-12 (500.0 años), pesos: areacello piControl/r1i1p1f1/gr, celdas con peso {'zos_ecuador': 1586, 'zos_oeste': 836, 'zos_este': 750}, 5.4 min
+[2026-11-25 19:35:28] E3SM-1-0: CSV escrito (tos + zos (grilla gr)), 6000 meses (500.0 años), miembro r1i1p1f1, grilla tos gr
+[2026-11-25 19:35:28] === fin de corrida
+Task was destroyed but it is pending!
+task: <Task pending name='Task-5091' coro=<_wait_for_close() running at /home/tomi/viento-roni/.venv/lib/python3.14/site-packages/aiohttp/connector.py:122>>
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/weakref.py", line 566, in _exitfunc
+    f()
+    ~^^
+  File "/usr/lib/python3.14/weakref.py", line 490, in __call__
+    return info.func(*info.args, **(info.kwargs or {}))
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tomi/viento-roni/.venv/lib/python3.14/site-packages/gcsfs/core.py", line 512, in close_session
+    asyn.sync(asyn.loop[0], session.close, timeout=0.1)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tomi/viento-roni/.venv/lib/python3.14/site-packages/fsspec/asyn.py", line 106, in sync
+    raise return_result
+  File "/home/tomi/viento-roni/.venv/lib/python3.14/site-packages/fsspec/asyn.py", line 59, in _runner
+    result[0] = await coro
+                ^^^^^^^^^^
+  File "/usr/lib/python3.14/asyncio/tasks.py", line 488, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/tomi/viento-roni/.venv/lib/python3.14/site-packages/aiohttp/client.py", line 1593, in close
+    await self._connector.close()
+  File "/home/tomi/viento-roni/.venv/lib/python3.14/site-packages/aiohttp/connector.py", line 1083, in close
+    await super().close(abort_ssl=abort_ssl or self._ssl_shutdown_timeout == 0)
+          ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tomi/viento-roni/.venv/lib/python3.14/site-packages/aiohttp/connector.py", line 505, in close
+    task = asyncio.Task(coro, loop=self._loop, eager_start=True)
+RuntimeError: loop <_UnixSelectorEventLoop running=True closed=False debug=False> is not the running loop

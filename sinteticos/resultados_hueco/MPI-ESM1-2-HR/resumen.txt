@@ -1,0 +1,31 @@
+MPI-ESM1-2-HR piControl: 1850-01 a 2349-12
+
+VERIFICACIÓN DEL ENSO
+                              serie  desvio  asimetria  periodo_pico_anios  frac_potencia_3_5  enganche_NDE  eventos_por_107
+                 RONI CPC 1950–2026   0.810      0.326               4.923              0.487         0.818           30.671
+               observado (consigna)     NaN      0.330                 NaN                NaN         0.800           26.000
+ MPI-ESM1-2-HR RONI (escala propia)   0.825      0.279               8.000              0.392         0.381           20.758
+    MPI-ESM1-2-HR RONI (escala CPC)   0.810      0.279               8.000              0.392         0.381           20.758
+MPI-ESM1-2-HR Nino3 (escala propia)   0.629      0.350               8.000              0.358         0.192           16.692
+   MPI-ESM1-2-HR Nino3 (escala CPC)   0.810      0.350               8.000              0.358         0.213           20.116
+
+HUECO — TODOS LOS EVENTOS
+                serie  n  q_banda    dip  p_dip     BIC1     BIC2    dBIC  D_ashman
+ RONI (escala propia) 97   0.1649 0.0357 0.5159 238.2155 238.2784 -0.0629    3.0560
+    RONI (escala CPC) 97   0.1649 0.0357 0.5159 238.6880 238.9003 -0.2123    3.0490
+Nino3 (escala propia) 78   0.1667 0.0359 0.6830 169.5907 175.2523 -5.6616    2.8641
+   Nino3 (escala CPC) 94   0.1489 0.0300 0.8257 235.2312 235.9331 -0.7019    3.0218
+   RONI CPC 1950–2026 22   0.0000 0.1052 0.0349  44.0778  35.6719  8.4059    5.1679
+
+HUECO — VENTANAS DE 107 AÑOS
+                serie        ventanas  n_ventanas  eventos_med  dip_med  P(dip>=0,095)  p_dip_med  dBIC_med  P(dBIC>=5,58)  D_med  P(D>=2,56)  q_med
+ RONI (escala propia)    superpuestas          40         21.0    0.077          0.150      0.347    -2.318          0.050  3.823       0.925  0.143
+ RONI (escala propia) no superpuestas           4         21.0    0.076          0.250      0.395    -2.687          0.000  3.859       1.000  0.131
+    RONI (escala CPC)    superpuestas          40         21.0    0.074          0.150      0.407    -2.268          0.050  3.764       0.925  0.143
+    RONI (escala CPC) no superpuestas           4         21.0    0.071          0.250      0.500    -2.555          0.000  3.860       1.000  0.131
+Nino3 (escala propia)    superpuestas          40         16.0    0.066          0.000      0.853    -2.562          0.075  3.301       0.800  0.194
+Nino3 (escala propia) no superpuestas           4         16.5    0.053          0.000      0.978    -3.513          0.000  2.583       0.500  0.211
+   Nino3 (escala CPC)    superpuestas          40         20.0    0.082          0.225      0.370    -2.426          0.150  3.770       0.900  0.150
+   Nino3 (escala CPC) no superpuestas           4         21.0    0.088          0.250      0.190    -4.057          0.000  2.923       1.000  0.143
+
+desvío RONI CPC = 0.810; años modelo = 500

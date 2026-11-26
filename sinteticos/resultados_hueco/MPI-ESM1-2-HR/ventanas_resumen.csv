@@ -1,0 +1,9 @@
+serie,ventanas,n_ventanas,eventos_med,dip_med,"P(dip>=0,095)",p_dip_med,dBIC_med,"P(dBIC>=5,58)",D_med,"P(D>=2,56)",q_med
+RONI (escala propia),superpuestas,40,21.0,0.077,0.15,0.347,-2.318,0.05,3.823,0.925,0.143
+RONI (escala propia),no superpuestas,4,21.0,0.076,0.25,0.395,-2.687,0.0,3.859,1.0,0.131
+RONI (escala CPC),superpuestas,40,21.0,0.074,0.15,0.407,-2.268,0.05,3.764,0.925,0.143
+RONI (escala CPC),no superpuestas,4,21.0,0.071,0.25,0.5,-2.555,0.0,3.86,1.0,0.131
+Nino3 (escala propia),superpuestas,40,16.0,0.066,0.0,0.853,-2.562,0.075,3.301,0.8,0.194
+Nino3 (escala propia),no superpuestas,4,16.5,0.053,0.0,0.978,-3.513,0.0,2.583,0.5,0.211
+Nino3 (escala CPC),superpuestas,40,20.0,0.082,0.225,0.37,-2.426,0.15,3.77,0.9,0.15
+Nino3 (escala CPC),no superpuestas,4,21.0,0.088,0.25,0.19,-4.057,0.0,2.923,1.0,0.143

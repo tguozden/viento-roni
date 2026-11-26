@@ -1,0 +1,11 @@
+modelo,miembro,grilla_tos,anios,desde,hasta,variables,pesos,saltos_fecha,duplicados,meses_sin_tos,meses_sin_zos,anios_completos,sd_nino34,sd_nino34_sin_tendencia,media_nino34,media_tropicos,deriva_nino34_C_siglo,deriva_nino34_total,deriva_tropicos_C_siglo,deriva_tropicos_total,deriva_notable
+CESM2,r1i1p1f1,gn,1200.0,0001-01,1200-12,tos+zos,areacello,0,0,0,0.0,True,1.121,1.118,26.88,27.33,0.022,0.26,0.017,0.2,sí
+GFDL-CM4,r1i1p1f1,gr,500.0,0151-01,0650-12,tos+zos,areacello,0,0,0,0.0,True,0.821,0.818,25.5,26.21,0.046,0.23,0.033,0.16,no
+MPI-ESM1-2-HR,r1i1p1f1,gn,500.0,1850-01,2349-12,tos+zos,areacello,0,0,0,0.0,True,0.845,0.845,26.0,26.91,-0.015,-0.08,-0.004,-0.02,no
+CNRM-CM6-1,r1i1p1f2,gn,500.0,1850-01,2349-12,tos+zos,areacello,0,0,0,0.0,True,0.884,0.883,25.65,26.43,0.033,0.17,0.016,0.08,no
+MIROC6,r1i1p1f1,gn,800.0,3200-01,3999-12,tos+zos,areacello,0,0,0,0.0,True,0.974,0.973,25.65,26.39,0.016,0.12,0.007,0.06,no
+NorESM2-LM,r1i1p1f1,gn,501.0,1600-01,2100-12,tos,areacello,0,0,0,,True,1.364,1.363,26.88,27.58,0.037,0.18,0.007,0.04,no
+ACCESS-CM2,r1i1p1f1,gn,500.0,0950-01,1449-12,tos+zos,areacello,0,0,0,0.0,True,0.866,0.863,26.73,27.16,0.048,0.24,0.029,0.15,no
+IPSL-CM6A-LR,r1i1p1f1,gn,1200.0,1850-01,3049-12,tos+zos,areacello,0,0,0,0.0,True,0.965,0.964,24.99,26.13,-0.011,-0.13,-0.007,-0.08,no
+UKESM1-0-LL,r1i1p1f2,gn,1880.0,1960-01,3839-12,tos+zos,areacello,0,0,0,0.0,True,0.95,0.949,25.7,26.65,-0.007,-0.13,-0.004,-0.08,no
+E3SM-1-0,r1i1p1f1,gr,500.0,0001-01,0500-12,tos+zos,areacello,0,0,0,0.0,True,0.885,0.885,25.72,26.65,0.007,0.03,0.011,0.06,no
